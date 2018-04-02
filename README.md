@@ -1,2 +1,2 @@
 # Simple-Twitter-Client
-Simple Demo For Twitter Client
+A Simple Demo That Simulates Twitter
