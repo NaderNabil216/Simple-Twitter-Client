@@ -6,26 +6,28 @@ package com.nadernabil.simpletwitterclient.Model.Objects;
 
 public class UserAccount {
 
-    private int id;
+    private Long id;
     private String user_name;
+    private String user_handle;
     private String profile_image ; //URL
     private String backGround_Image ; //URL
-
-    public UserAccount(int id, String user_name, String profile_image, String backGround_Image) {
-        this.id = id;
-        this.user_name = user_name;
-        this.profile_image = profile_image;
-        this.backGround_Image = backGround_Image;
-    }
 
     public UserAccount() {
     }
 
-    public int getId() {
+    public UserAccount(Long id, String user_name, String user_handle, String profile_image, String backGround_Image) {
+        this.id = id;
+        this.user_name = user_name;
+        this.user_handle = user_handle;
+        this.profile_image = profile_image;
+        this.backGround_Image = backGround_Image;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

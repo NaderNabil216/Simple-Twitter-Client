@@ -39,13 +39,13 @@ public class StorageUtil {
         return preferences.getBoolean(GMethods.isLogged, false);
     }
 
-    public void SetUID(int uid) {
-        editor.putInt(GMethods.UID, uid);
+    public void SetUID(Long uid) {
+        editor.putLong(GMethods.UID, uid);
         editor.apply();
     }
 
-    public int GetUID() {
-        return preferences.getInt(GMethods.UID, 0);
+    public Long GetUID() {
+        return preferences.getLong(GMethods.UID, 0);
     }
 
 }

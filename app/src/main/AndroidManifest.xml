@@ -14,16 +14,33 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".UI.Activities.SplashActivity"
-            android:theme="@style/SplashTheme">
+            android:theme="@style/NoActionBar"
+            android:name=".UI.Activities.LoginActivity"
+            android:noHistory="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="t4jsample"
+                    android:scheme="oauth" />
+            </intent-filter>
         </activity>
-        <activity android:name=".UI.Activities.LoginActivity" />
-        <activity android:name=".UI.Activities.FollowerInformation"></activity>
+        <activity
+            android:name=".UI.Activities.FollowerInformation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UI.Activities.MainActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

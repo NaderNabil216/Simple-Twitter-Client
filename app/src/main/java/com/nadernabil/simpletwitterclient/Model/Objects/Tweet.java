@@ -6,24 +6,24 @@ package com.nadernabil.simpletwitterclient.Model.Objects;
 
 public class Tweet {
 
-    private int id;
+    private Long id;
     private String Content ;
     private String follower_id ; //URL
 
-    public Tweet(int id, String content, String follower_id) {
+    public Tweet() {
+    }
+
+    public Tweet(Long id, String content, String follower_id) {
         this.id = id;
         Content = content;
         this.follower_id = follower_id;
     }
 
-    public Tweet() {
-    }
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

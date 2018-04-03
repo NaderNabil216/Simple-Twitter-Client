@@ -6,38 +6,32 @@ package com.nadernabil.simpletwitterclient.Model.Objects;
 
 public class Follower {
 
-    private int id;
+    private Long id;
     private String user_name;
-    private String bio ="";
-    private String profile_image ; //URL
-    private String backGround_Image ; //URL
-    private int follows ; // user account id that this follower follows // foreign key
+    private String handle;
+    private String bio = "";
+    private String profile_image; //URL
+    private String backGround_Image; //URL
+    private Long follows; // user account id that this follower follows // foreign key
 
-    public Follower(int id, String user_name, String bio, String profile_image, String backGround_Image, int follows) {
+    public Follower() {
+    }
+
+    public Follower(Long id, String user_name, String handle, String bio, String profile_image, String backGround_Image, Long follows) {
         this.id = id;
         this.user_name = user_name;
+        this.handle = handle;
         this.bio = bio;
         this.profile_image = profile_image;
         this.backGround_Image = backGround_Image;
         this.follows = follows;
     }
 
-    public Follower(int id, String user_name, String profile_image, String backGround_Image, int follows) {
-        this.id = id;
-        this.user_name = user_name;
-        this.profile_image = profile_image;
-        this.backGround_Image = backGround_Image;
-        this.follows = follows;
-    }
-
-    public Follower() {
-    }
-
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -47,6 +41,14 @@ public class Follower {
 
     public void setUser_name(String user_name) {
         this.user_name = user_name;
+    }
+
+    public String getHandle() {
+        return handle;
+    }
+
+    public void setHandle(String handle) {
+        this.handle = handle;
     }
 
     public String getBio() {
@@ -73,11 +75,11 @@ public class Follower {
         this.backGround_Image = backGround_Image;
     }
 
-    public int getFollows() {
+    public Long getFollows() {
         return follows;
     }
 
-    public void setFollows(int follows) {
+    public void setFollows(Long follows) {
         this.follows = follows;
     }
 }
