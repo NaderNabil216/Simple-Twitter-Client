@@ -28,7 +28,7 @@ public class UserAccountsOperations {
         ContentValues contentValues = new ContentValues();
         contentValues.put(UserAccountsTable.COL_USER_ID, user.getId());
         contentValues.put(UserAccountsTable.COL_USER_NAME, user.getScreenName());
-        contentValues.put(UserAccountsTable.COL_USER_HANDLE, user.getName());
+        contentValues.put(UserAccountsTable.COL_USER_HANDLE, "@"+user.getName());
         contentValues.put(UserAccountsTable.COL_USER_PROFILE_IMAGE, user.getProfileImageURL());
         contentValues.put(UserAccountsTable.COL_USER_BG_IMAGE, user.getProfileBannerMobileURL());
         long done = db.insert(UserAccountsTable.TABLE_USER, null, contentValues);
@@ -52,11 +52,11 @@ public class UserAccountsOperations {
         int index4 = cursor.getColumnIndex(UserAccountsTable.COL_USER_PROFILE_IMAGE);
         int index5 = cursor.getColumnIndex(UserAccountsTable.COL_USER_BG_IMAGE);
         while (cursor.moveToNext()) {
-            UserAccount userAccount = new UserAccount(cursor.getLong(index1),
-                    cursor.getString(index2),
-                    cursor.getString(index3),
-                    cursor.getString(index4),
-                   cursor.getString(index5));
+            UserAccount userAccount = new UserAccount(cursor.getLong(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                   cursor.getString(4));
             data.add(userAccount);
         }
         return data;

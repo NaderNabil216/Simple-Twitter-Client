@@ -4,12 +4,12 @@
     <item
         android:id="@+id/navigation_followers"
         android:icon="@drawable/ic_followers_black_24dp"
-        android:title="@string/title_home" />
+        android:title="@string/followers" />
 
     <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_person_black_24dp"
-        android:title="@string/title_dashboard" />
+        android:title="@string/profile" />
 
 
 </menu>

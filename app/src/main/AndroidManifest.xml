@@ -35,6 +35,7 @@
             </intent-filter>
         </activity>
         <activity
+            android:theme="@style/NoActionBar"
             android:name=".UI.Activities.FollowerInformation"
             android:screenOrientation="portrait" />
         <activity

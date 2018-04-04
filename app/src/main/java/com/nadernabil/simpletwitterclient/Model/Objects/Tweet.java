@@ -8,15 +8,25 @@ public class Tweet {
 
     private Long id;
     private String Content ;
-    private String follower_id ; //URL
+    private Long follower_id ; //URL
+    private String Created_at; // " d MMM yy , hh:mm aaa "
 
     public Tweet() {
     }
 
-    public Tweet(Long id, String content, String follower_id) {
+    public Tweet(Long id, String content, Long follower_id, String created_at) {
         this.id = id;
         Content = content;
         this.follower_id = follower_id;
+        Created_at = created_at;
+    }
+
+    public String getCreated_at() {
+        return Created_at;
+    }
+
+    public void setCreated_at(String created_at) {
+        Created_at = created_at;
     }
 
     public Long getId() {
@@ -35,11 +45,11 @@ public class Tweet {
         Content = content;
     }
 
-    public String getFollower_id() {
+    public Long getFollower_id() {
         return follower_id;
     }
 
-    public void setFollower_id(String follower_id) {
+    public void setFollower_id(Long follower_id) {
         this.follower_id = follower_id;
     }
 }

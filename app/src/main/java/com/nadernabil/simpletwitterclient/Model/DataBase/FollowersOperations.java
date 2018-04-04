@@ -4,9 +4,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.nadernabil.simpletwitterclient.Model.Objects.Follower;
-import com.nadernabil.simpletwitterclient.Model.Objects.UserAccount;
 
 import java.util.ArrayList;
 
@@ -35,6 +35,7 @@ public class FollowersOperations {
         contentValues.put(FollowersTable.COL_FOLLOWER_BIO, user.getDescription());
         contentValues.put(FollowersTable.COL_FOLLOWER_FOLLOWS, current_user_id);
         long done = db.insert(FollowersTable.TABLE_FOLLOWER, null, contentValues);
+        Log.e("followers db insert", "" + done);
         db.close();
         return done;
     }
@@ -53,28 +54,20 @@ public class FollowersOperations {
         String Cluser = FollowersTable.COL_FOLLOWER_FOLLOWS + " ='" + current_user_id + "'";
 
         Cursor cursor = db.query(FollowersTable.TABLE_FOLLOWER, colomns, Cluser, null, null, null, null);
-        int index1 = cursor.getColumnIndex(FollowersTable.COL_FOLLOWER_ID);
-        int index2 = cursor.getColumnIndex(FollowersTable.COL_FOLLOWER_NAME);
-        int index3 = cursor.getColumnIndex(FollowersTable.COL_FOLLOWER_HANDLE);
-        int index4 = cursor.getColumnIndex(FollowersTable.COL_FOLLOWER_BIO);
-        int index5 = cursor.getColumnIndex(FollowersTable.COL_FOLLOWER_PROFILE_IMAGE);
-        int index6 = cursor.getColumnIndex(FollowersTable.COL_FOLLOWER_BG_IMAGE);
-        int index7 = cursor.getColumnIndex(FollowersTable.COL_FOLLOWER_FOLLOWS);
-
         while (cursor.moveToNext()) {
-            Follower follower = new Follower(cursor.getLong(index1),
-                    cursor.getString(index2),
-                    cursor.getString(index3),
-                    cursor.getString(index4),
-                    cursor.getString(index5),
-                    cursor.getString(index6),
-                    cursor.getLong(index7));
+            Follower follower = new Follower(cursor.getLong(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(5),
+                    cursor.getString(3),
+                    cursor.getString(4),
+                    cursor.getLong(6));
             data.add(follower);
         }
         return data;
     }
 
-    public boolean IsEmpty(Long current_user_id){
+    public boolean IsEmpty(Long current_user_id) {
         ArrayList<Follower> followers = getAllData(current_user_id);
         return followers.isEmpty();
     }

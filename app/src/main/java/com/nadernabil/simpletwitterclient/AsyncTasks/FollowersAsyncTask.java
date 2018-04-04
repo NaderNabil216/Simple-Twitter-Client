@@ -1,6 +1,8 @@
 package com.nadernabil.simpletwitterclient.AsyncTasks;
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 import com.nadernabil.simpletwitterclient.Bases.FollowersContract;
 
@@ -18,12 +20,13 @@ public class FollowersAsyncTask extends AsyncTask<Void, Void, PagableResponseLis
     Long current_user_id, curser;
     Twitter twitter;
     PagableResponseList<User> users;
-
-    public FollowersAsyncTask(FollowersContract.FollowersPresenter followersPresenter, Long current_user_id, Long curser, Twitter twitter) {
+    Context context;
+    public FollowersAsyncTask(Context context , FollowersContract.FollowersPresenter followersPresenter, Long current_user_id, Long curser, Twitter twitter) {
         this.followersPresenter = followersPresenter;
         this.current_user_id = current_user_id;
         this.curser = curser;
         this.twitter = twitter;
+        this.context = context;
     }
 
     @Override
@@ -32,6 +35,7 @@ public class FollowersAsyncTask extends AsyncTask<Void, Void, PagableResponseLis
             users = twitter.getFollowersList(current_user_id, curser, 20);
         } catch (TwitterException e) {
             e.printStackTrace();
+
         }
         return users;
     }
@@ -39,10 +43,16 @@ public class FollowersAsyncTask extends AsyncTask<Void, Void, PagableResponseLis
     @Override
     protected void onPostExecute(PagableResponseList<User> users) {
         super.onPostExecute(users);
-        if(curser>0){
-            followersPresenter.SetDataInViewReloaded(users,users.getNextCursor());
+        if (users == null){
+            followersPresenter.ShowEmptyData();
+            Toast.makeText(context, "Rate Limit", Toast.LENGTH_SHORT).show();
         }else {
-            followersPresenter.SetDataInViewFirstTime(users,users.getNextCursor());
+            if(curser>0){
+                followersPresenter.SetDataInViewReloaded(users,users.getNextCursor());
+            }else {
+                followersPresenter.SetDataInViewFirstTime(users,users.getNextCursor());
+            }
         }
+
     }
 }

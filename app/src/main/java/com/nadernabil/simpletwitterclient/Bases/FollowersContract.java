@@ -19,8 +19,6 @@ public interface FollowersContract {
 
         void InitViews(View view);
 
-        void SetPresenter(FollowersPresenter presenter);
-
         void SetDataFirstTime(ArrayList<Follower> followers, Long curser);
 
         void SetReloadedData(ArrayList<Follower> followers, Long curser);
@@ -46,6 +44,8 @@ public interface FollowersContract {
         void SetDataInViewReloaded(PagableResponseList<User> users, Long curser);
 
         ArrayList<Follower> ConvertUsersToFollowers(PagableResponseList<User> users);
+
+        void ShowEmptyData();
 
     }
 }

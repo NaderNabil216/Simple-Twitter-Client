@@ -9,6 +9,7 @@ import com.nadernabil.simpletwitterclient.Model.Objects.Follower;
 import com.nadernabil.simpletwitterclient.Utils.GMethods;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import twitter4j.PagableResponseList;
 import twitter4j.Twitter;
@@ -27,16 +28,20 @@ public class FollowersListPresenter implements FollowersContract.FollowersPresen
     private FollowersContract.FollowersView view;
     private Long currentUserUid;
     private Twitter twitter;
+    private Context context;
 
     public FollowersListPresenter(FollowersContract.FollowersView view, Long currentUserUid, Context context) {
 
         this.followersOperations = new FollowersOperations(context);
         this.view = view;
         this.currentUserUid = currentUserUid;
+        this.context = context;
 
         ConfigurationBuilder builder = new ConfigurationBuilder();
         builder.setOAuthConsumerKey(GMethods.TWITTER_CONSUMER_KEY);
         builder.setOAuthConsumerSecret(GMethods.TWITTER_CONSUMER_SECRET);
+        builder.setOAuthAccessToken(GMethods.TWITTER_ACCESS_TOKEN);
+        builder.setOAuthAccessTokenSecret(GMethods.TWITTER_ACCESS_TOKEN_SECRET);
         Configuration configuration = builder.build();
 
         TwitterFactory factory = new TwitterFactory(configuration);
@@ -46,7 +51,7 @@ public class FollowersListPresenter implements FollowersContract.FollowersPresen
 
     @Override
     public void GetDataFromService(Long curser) {
-        FollowersAsyncTask task = new FollowersAsyncTask(this, currentUserUid, curser, twitter);
+        FollowersAsyncTask task = new FollowersAsyncTask(context, this, currentUserUid, curser, twitter);
         task.execute();
     }
 
@@ -79,7 +84,7 @@ public class FollowersListPresenter implements FollowersContract.FollowersPresen
 
     @Override
     public void SetDataInViewFirstTime(PagableResponseList<User> users, Long curser) {
-        if (users.isEmpty()) {
+        if (users.isEmpty() && (Objects.equals(curser, Long.valueOf(-1)))) {
             view.ShowEmptyData();
         } else {
             InsertFollowersToDb(users);
@@ -98,14 +103,19 @@ public class FollowersListPresenter implements FollowersContract.FollowersPresen
         ArrayList<Follower> followers = new ArrayList<>();
         for (User user : users) {
             followers.add(new Follower(user.getId(),
-                    user.getScreenName(),
                     user.getName(),
+                    "@" + user.getScreenName(),
                     user.getDescription(),
-                    user.getProfileImageURL(),
+                    user.getOriginalProfileImageURL(),
                     user.getProfileBannerMobileURL(),
                     this.currentUserUid
             ));
         }
         return followers;
+    }
+
+    @Override
+    public void ShowEmptyData() {
+        view.ShowEmptyData();
     }
 }

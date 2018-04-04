@@ -6,6 +6,9 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="twitter_login">Twitter Login</string>
+    <string name="no_available_data">No Available Data</string>
+    <string name="profile">Profile</string>
+    <string name="followers">Followers</string>
 
 
 </resources>
