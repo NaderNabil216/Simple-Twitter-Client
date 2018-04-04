@@ -21,6 +21,8 @@ public interface FollowerInformationContract {
 
         void InitViews();
 
+        void SetFollowerData();
+
         void SetData(ArrayList<Tweet> tweets);
 
         void ShowEmptyData();

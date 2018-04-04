@@ -107,7 +107,7 @@ public class FollowersListPresenter implements FollowersContract.FollowersPresen
                     "@" + user.getScreenName(),
                     user.getDescription(),
                     user.getOriginalProfileImageURL(),
-                    user.getProfileBannerMobileURL(),
+                    user.getProfileBannerRetinaURL(),
                     this.currentUserUid
             ));
         }

@@ -72,7 +72,7 @@ public class FollowersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ItemViewHolder) {
             final Follower follower = followers.get(position);
-                Picasso.with(context).load(follower.getProfile_image()).placeholder(R.drawable.twitter_default).into(((ItemViewHolder) holder).profile_image);
+            Picasso.with(context).load(follower.getProfile_image()).placeholder(R.drawable.twitter_default).into(((ItemViewHolder) holder).profile_image);
 
             ((ItemViewHolder) holder).user_name.setText(follower.getUser_name());
             ((ItemViewHolder) holder).user_handle.setText(follower.getHandle());
@@ -82,11 +82,7 @@ public class FollowersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, FollowerInformation.class);
-                    intent.putExtra(GMethods.FOLLOWER_ID, follower.getId());
-                    intent.putExtra(GMethods.FOLLOWER_NAME, follower.getUser_name());
-                    intent.putExtra(GMethods.FOLLOWER_HANDLE, follower.getHandle());
-                    intent.putExtra(GMethods.FOLLOWER_PROFILE_IMAGE, follower.getProfile_image());
-                    intent.putExtra(GMethods.FOLLOWER_BACKGROUND_IMAGE, follower.getBackGround_Image());
+                    intent.putExtra(GMethods.FOLLOWER, GMethods.FOLLOWER_TO_STRING(follower));
                     context.startActivity(intent);
                 }
             });

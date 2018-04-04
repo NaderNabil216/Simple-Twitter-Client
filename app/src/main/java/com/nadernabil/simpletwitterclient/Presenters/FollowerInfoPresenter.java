@@ -2,10 +2,10 @@ package com.nadernabil.simpletwitterclient.Presenters;
 
 import android.content.Context;
 
+import com.nadernabil.simpletwitterclient.AsyncTasks.TweetsAsyncTask;
 import com.nadernabil.simpletwitterclient.Bases.FollowerInformationContract;
-import com.nadernabil.simpletwitterclient.Bases.FollowersContract;
-import com.nadernabil.simpletwitterclient.Model.DataBase.FollowersOperations;
 import com.nadernabil.simpletwitterclient.Model.DataBase.TweetsOperations;
+import com.nadernabil.simpletwitterclient.Model.Objects.Follower;
 import com.nadernabil.simpletwitterclient.Model.Objects.Tweet;
 import com.nadernabil.simpletwitterclient.Utils.GMethods;
 
@@ -15,6 +15,7 @@ import twitter4j.ResponseList;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
+import twitter4j.User;
 import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
 
@@ -29,8 +30,8 @@ public class FollowerInfoPresenter implements FollowerInformationContract.InfoPr
     private Twitter twitter;
     private Context context;
 
-    public FollowerInfoPresenter(TweetsOperations tweetsOperations, FollowerInformationContract.InfoView view, Long currentFollowerUid, Context context) {
-        this.tweetsOperations = tweetsOperations;
+    public FollowerInfoPresenter(FollowerInformationContract.InfoView view, Long currentFollowerUid, Context context) {
+        this.tweetsOperations = new TweetsOperations(context);
         this.view = view;
         this.currentFollowerUid = currentFollowerUid;
         this.context = context;
@@ -49,36 +50,58 @@ public class FollowerInfoPresenter implements FollowerInformationContract.InfoPr
 
     @Override
     public void GetDataFromService() {
-
+        TweetsAsyncTask task = new TweetsAsyncTask(this, currentFollowerUid, twitter, context);
+        task.execute();
     }
 
     @Override
     public void GetDataFromLocalDB() {
-
+        ArrayList<Tweet> tweets = tweetsOperations.getAllData(currentFollowerUid);
+        if (tweets.isEmpty()) {
+            view.ShowEmptyData();
+        } else {
+            view.SetData(tweets);
+        }
     }
 
     @Override
     public void GetData() {
-
+        if (view.IsOnLine()) {
+            GetDataFromService();
+        }else {
+            GetDataFromLocalDB();
+        }
     }
 
     @Override
     public void InsertTweetsToDb(ResponseList<Status> statuses) {
-
+        for (Status status : statuses){
+            tweetsOperations.InsertTweet(status,currentFollowerUid);
+        }
     }
 
     @Override
     public void SetDataInView(ResponseList<Status> statuses) {
+        InsertTweetsToDb(statuses);
+        if(statuses.isEmpty()){
+            view.ShowEmptyData();
+        }else {
+            view.SetData(ConvertStatusToTweet(statuses));
+        }
 
     }
 
     @Override
     public ArrayList<Tweet> ConvertStatusToTweet(ResponseList<Status> statuses) {
-        return null;
+        ArrayList<Tweet> tweets = new ArrayList<>();
+        for (Status status : statuses) {
+            tweets.add(new Tweet(status.getId(),status.getText(),currentFollowerUid,GMethods.DATE_TO_STRING(status.getCreatedAt())));
+        }
+        return tweets;
     }
 
     @Override
     public void ShowEmptyData() {
-
+        view.ShowEmptyData();
     }
 }
