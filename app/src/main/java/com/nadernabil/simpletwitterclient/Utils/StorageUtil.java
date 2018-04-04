@@ -48,4 +48,23 @@ public class StorageUtil {
         return preferences.getLong(GMethods.UID, 0);
     }
 
+    public String getLang() {
+        return preferences.getString(GMethods.LANGUAGE, "en");
+    }
+
+    public void setLang(String lang) {
+        editor.putString(GMethods.LANGUAGE, lang);
+        editor.apply();
+    }
+
+    public boolean IsFromMainActivity(){
+        return preferences.getBoolean(GMethods.From_Main_Activity, false);
+    }
+
+    public void setFromMainActivity (boolean flag) {
+        editor.putBoolean(GMethods.From_Main_Activity, flag);
+        editor.apply();
+    }
+
+
 }

@@ -25,9 +25,11 @@ dependencies {
     implementation 'com.android.support:design:26.1.0'
     compile 'com.android.support:recyclerview-v7:26.1.0'
     compile 'com.android.support:cardview-v7:26.1.0'
-    compile 'de.hdodenhof:circleimageview:2.1.0'
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile group: 'com.google.code.gson', name: 'gson', version: '2.7', changing: true //for converting object to Json String
+    compile 'de.hdodenhof:circleimageview:2.1.0' // rounded imageView
+    compile 'com.squareup.picasso:picasso:2.5.2' // image cashing
+    compile "com.ahmedjazzar.rosetta:rosetta:1.0.1" // language switcher
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.7', changing: true
+    //for converting object to Json String
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'

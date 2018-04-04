@@ -1,5 +1,6 @@
 package com.nadernabil.simpletwitterclient.UI.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,13 +32,15 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     private static RequestToken requestToken;
     private StorageUtil util;
     private LoginContract.LoginPresenter presenter;
+    boolean FromMainActivity = false;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         InitView();
-        Checker();
+        CheckerForAddNewAccount();
     }
 
     @Override
@@ -80,15 +83,19 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     }
 
     /**
-     * check whether user is logged in or not , and if not if he is coming with auth data or just opening the app
+     * check whether user is logged in or , if he is coming with auth data or just opening the app , or coming from main activity to add new account
      */
     @Override
-    public void Checker() {
-        if (util.IsLogged()) {
+    public void CheckerForTwitterVerifier() {
+        if (util.IsLogged() && !util.IsFromMainActivity()) {
             startActivity(new Intent(this, MainActivity.class));
         } else {
+            if (GMethods.isNetworkAvailable(this)) {
+                presenter.StartLoginTask(requestToken, twitter);
+            } else {
+                Toast.makeText(this, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+            }
 
-            presenter.StartLoginTask(requestToken, twitter);
         }
     }
 
@@ -100,6 +107,26 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
         presenter = loginPresenter;
     }
 
+    @Override
+    public void CheckerForAddNewAccount() {
+        Intent intent = getIntent();
+        if (intent != null && intent.getBooleanExtra(GMethods.From_Main_Activity, false)) {
+            FromMainActivity = true;
+            btn_login.setText(R.string.click_here_to_add_new_account);
+        } else {
+            CheckerForTwitterVerifier();
+        }
+    }
+
+    @Override
+    public void ShowProgressDialoug() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle(getString(R.string.twitter));
+        progressDialog.setMessage(getString(R.string.logging_in));
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+    }
+
     /**
      * login granted
      */
@@ -107,14 +134,21 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     public void LoginSuccess(User user, AccessToken accessToken) {
         util.SetIsLogged(true);
         util.SetUID(user.getId());
-        Toast.makeText(this, "Login Granted", Toast.LENGTH_SHORT).show();
+        progressDialog.dismiss();
+        util.setFromMainActivity(false);
         presenter.InsertUserIntoDb(user, this);
         startActivity(new Intent(this, MainActivity.class));
     }
 
     @Override
     public void onBackPressed() {
-        finishAffinity();
-        System.exit(0);
+        if (FromMainActivity) {
+            finish();
+            util.setFromMainActivity(false);
+        } else {
+            finishAffinity();
+            System.exit(0);
+        }
+
     }
 }

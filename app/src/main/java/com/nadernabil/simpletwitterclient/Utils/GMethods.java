@@ -39,6 +39,8 @@ public class GMethods {
     public static final String TWITTER_ACCESS_TOKEN_SECRET = "fUHoU27sFSeb6AlfP49FQ314f3MtTnKy4H8Sm5MpOnFPc";
 
     public static final String FOLLOWER="FOLLOWER";
+    public static final String From_Main_Activity="From_Main_Activity";
+    public static final String LANGUAGE="LANGUAGE";
 
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager

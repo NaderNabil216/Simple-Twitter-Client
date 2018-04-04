@@ -16,8 +16,10 @@ public interface LoginContract {
         void LoginSuccess(User user, AccessToken accessToken);
         void InitView();
         void LogInClick();
-        void Checker();
+        void CheckerForTwitterVerifier();
         void SetPresenter(LoginPresenter loginPresenter);
+        void CheckerForAddNewAccount();
+        void ShowProgressDialoug();
 
     }
 

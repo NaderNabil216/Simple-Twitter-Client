@@ -35,6 +35,7 @@ public class LoginPresenter implements LoginContract.LoginPresenter {
             /**
              * here start getting user data and token
              */
+            loginView.ShowProgressDialoug();
             LoginAsyncTask loginAsyncTask = new LoginAsyncTask(loginView, requestToken, twitter, verifier);
             loginAsyncTask.execute();
         }
