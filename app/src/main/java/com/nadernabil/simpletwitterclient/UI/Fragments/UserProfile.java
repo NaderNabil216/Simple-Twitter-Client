@@ -19,6 +19,7 @@ import com.nadernabil.simpletwitterclient.Bases.ProfileContract;
 import com.nadernabil.simpletwitterclient.Model.Objects.UserAccount;
 import com.nadernabil.simpletwitterclient.Presenters.UserProfilePresenter;
 import com.nadernabil.simpletwitterclient.R;
+import com.nadernabil.simpletwitterclient.UI.Activities.ChangeLanguageActivity;
 import com.nadernabil.simpletwitterclient.UI.Activities.LoginActivity;
 import com.nadernabil.simpletwitterclient.Utils.GMethods;
 import com.nadernabil.simpletwitterclient.Utils.StorageUtil;
@@ -30,11 +31,11 @@ import java.util.ArrayList;
  * Created by NaderNabil@gmail.com on 4/2/2018.
  */
 
-public class UserProfile extends Fragment implements ProfileContract.profile_view , View.OnClickListener{
+public class UserProfile extends Fragment implements ProfileContract.profile_view, View.OnClickListener {
     boolean IsActive = false;
     private UserAccountsAdapter adapter;
     private RecyclerView recyclerView;
-    private TextView tv_name, tv_handle, tv_bio, tv_addAccount , tv_change_language , tv_logout;
+    private TextView tv_name, tv_handle, tv_bio, tv_addAccount, tv_change_language, tv_logout;
     private ImageView header_image, profile_image;
     private Toolbar toolbar;
     private UserProfilePresenter presenter;
@@ -105,14 +106,14 @@ public class UserProfile extends Fragment implements ProfileContract.profile_vie
         tv_name.setText(account.getUser_name());
         tv_handle.setText(account.getUser_handle());
         tv_bio.setText(account.getUser_bio());
-       // toolbar.setTitle(account.getUser_name());
+        // toolbar.setTitle(account.getUser_name());
     }
 
     @Override
     public void AddNewAccount() {
         StorageUtil.getInstance().doStuff(getActivity()).setFromMainActivity(true);
-        Intent intent = new Intent(getActivity(),LoginActivity.class);
-        intent.putExtra(GMethods.From_Main_Activity,true);
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        intent.putExtra(GMethods.From_Main_Activity, true);
         startActivity(intent);
     }
 
@@ -129,12 +130,12 @@ public class UserProfile extends Fragment implements ProfileContract.profile_vie
 
     @Override
     public void ChangeLanguage() {
-
+        startActivity(new Intent(getActivity(), ChangeLanguageActivity.class));
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.AddAccount:
                 AddNewAccount();
                 break;
