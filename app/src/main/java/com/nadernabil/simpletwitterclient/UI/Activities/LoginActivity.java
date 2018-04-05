@@ -46,10 +46,15 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     @Override
     public void InitView() {
         btn_login = findViewById(R.id.btn_login);
+
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LogInClick();
+                if (GMethods.isNetworkAvailable(LoginActivity.this)) {
+                    LogInClick();
+                } else {
+                    Toast.makeText(LoginActivity.this, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -60,6 +65,9 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
 
     @Override
     public void LogInClick() {
+
+        ShowProgressDialoug();
+
         ConfigurationBuilder builder = new ConfigurationBuilder();
         builder.setOAuthConsumerKey(GMethods.TWITTER_CONSUMER_KEY);
         builder.setOAuthConsumerSecret(GMethods.TWITTER_CONSUMER_SECRET);

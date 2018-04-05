@@ -124,8 +124,8 @@ public class UserProfile extends Fragment implements ProfileContract.profile_vie
 
     @Override
     public void LogOut() {
-        StorageUtil.getInstance().doStuff(getActivity()).SetIsLogged(false);
-        startActivity(new Intent(getActivity(), LoginActivity.class));
+       presenter.PerformLogOut(getActivity());
+
     }
 
     @Override

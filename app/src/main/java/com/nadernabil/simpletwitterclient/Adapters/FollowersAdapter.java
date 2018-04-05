@@ -117,6 +117,13 @@ public class FollowersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         onLoadMoreListener = listener;
     }
 
+    public void ClearData(){
+        if(!followers.isEmpty()){
+            followers.clear();
+            notifyDataSetChanged();
+        }
+    }
+
 
     private class ItemViewHolder extends RecyclerView.ViewHolder {
         ImageView profile_image;

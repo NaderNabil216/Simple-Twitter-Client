@@ -2,8 +2,6 @@ package com.nadernabil.simpletwitterclient.UI.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.nadernabil.simpletwitterclient.Adapters.TweetsAdapter;
@@ -30,10 +29,11 @@ public class FollowerInformation extends AppCompatActivity implements FollowerIn
     private TweetsAdapter tweetsAdapter;
     private RecyclerView recyclerView;
     private Follower follower;
-    private TextView tv_name, tv_handle, tv_bio ,txt_no_data;
+    private TextView tv_name, tv_handle, tv_bio, txt_no_data;
     private ImageView header_image, profile_image;
     private Toolbar toolbar;
     private FollowerInfoPresenter presenter;
+    private ProgressBar progress_bar;
 
 
     @Override
@@ -56,7 +56,8 @@ public class FollowerInformation extends AppCompatActivity implements FollowerIn
         tv_name = findViewById(R.id.txt_user_screen_name);
         tv_handle = findViewById(R.id.txt_user_handle);
         tv_bio = findViewById(R.id.txt_user_bio);
-        txt_no_data=findViewById(R.id.txt_no_data);
+        txt_no_data = findViewById(R.id.txt_no_data);
+        progress_bar = findViewById(R.id.progress_bar);
 
         header_image = findViewById(R.id.header_image);
         profile_image = findViewById(R.id.profile_image);
@@ -85,12 +86,14 @@ public class FollowerInformation extends AppCompatActivity implements FollowerIn
 
     @Override
     public void SetData(ArrayList<Tweet> tweets) {
+        progress_bar.setVisibility(View.GONE);
         tweetsAdapter = new TweetsAdapter(tweets, this, follower);
         recyclerView.setAdapter(tweetsAdapter);
     }
 
     @Override
     public void ShowEmptyData() {
+        progress_bar.setVisibility(View.GONE);
         txt_no_data.setVisibility(View.VISIBLE);
     }
 

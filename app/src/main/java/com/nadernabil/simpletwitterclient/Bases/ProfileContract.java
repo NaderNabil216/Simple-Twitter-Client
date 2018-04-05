@@ -1,5 +1,6 @@
 package com.nadernabil.simpletwitterclient.Bases;
 
+import android.content.Context;
 import android.view.View;
 
 import com.nadernabil.simpletwitterclient.Model.Objects.UserAccount;
@@ -39,6 +40,8 @@ public interface ProfileContract {
         void GetAllUsers();
 
         void SwitchAccounts(Long choosen_account_id);
+
+        void PerformLogOut(Context context);
 
     }
 }

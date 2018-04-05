@@ -66,5 +66,11 @@ public class StorageUtil {
         editor.apply();
     }
 
+    public void clearCached() {
+        preferences = context.getSharedPreferences(STORAGE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.apply();
+    }
 
 }

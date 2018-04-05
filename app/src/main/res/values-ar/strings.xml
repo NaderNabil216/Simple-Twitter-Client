@@ -17,8 +17,10 @@
     <string name="no_internet_connection">لا يوجد إتصال بالإنترنت</string>
     <string name="click_here_to_add_new_account">إضغط هنا لإضافة حساب جديد</string>
     <string name="logging_in">جاري تسجيل الدخول</string>
-    <string name="twitter">Twitter</string>
+    <string name="twitter">تويتر</string>
     <string name="language_settings">إعدادات اللغة</string>
+    <string name="logging_out">جاري تسجيل الخروج</string>
+    <string name="no_tweets">لا يوجد تغريدات متاحة</string>
 
 
 </resources>

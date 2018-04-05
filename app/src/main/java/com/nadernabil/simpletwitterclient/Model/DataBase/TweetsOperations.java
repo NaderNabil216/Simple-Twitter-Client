@@ -61,6 +61,12 @@ public class TweetsOperations {
         return data;
     }
 
+    public int DeleteTweets(){
+        SQLiteDatabase db = contract.getWritableDatabase();
+        int count = db.delete(TweetsTable.TABLE_TWEETS, null, null);
+        return count;
+    }
+
     public boolean IsEmpty(Long current_follower_id) {
         ArrayList<Tweet> tweets = getAllData(current_follower_id);
         return tweets.isEmpty();

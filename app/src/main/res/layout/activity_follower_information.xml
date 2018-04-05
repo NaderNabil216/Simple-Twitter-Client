@@ -17,10 +17,10 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="200dp"
             android:fitsSystemWindows="true"
             app:expandedTitleTextAppearance="@android:color/transparent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|enterAlwaysCollapsed">
 
             <ImageView
                 android:maxHeight="100dp"
@@ -124,11 +124,18 @@
                 <TextView
                     android:visibility="gone"
                     android:id="@+id/txt_no_data"
-                    android:text="@string/no_available_data"
+                    android:text="@string/no_tweets"
                     android:layout_centerInParent="true"
                     style="@style/TextAppearance.AppCompat.Large"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_centerInParent="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
 
             </RelativeLayout>
 

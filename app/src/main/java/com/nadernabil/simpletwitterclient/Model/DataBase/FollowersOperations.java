@@ -67,6 +67,12 @@ public class FollowersOperations {
         return data;
     }
 
+    public int DeleteFollowers(){
+        SQLiteDatabase db = contract.getWritableDatabase();
+        int count = db.delete(FollowersTable.TABLE_FOLLOWER, null, null);
+        return count;
+    }
+
     public boolean IsEmpty(Long current_user_id) {
         ArrayList<Follower> followers = getAllData(current_user_id);
         return followers.isEmpty();

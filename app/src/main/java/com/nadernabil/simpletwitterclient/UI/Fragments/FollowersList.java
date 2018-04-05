@@ -107,6 +107,7 @@ public class FollowersList extends Fragment implements FollowersContract.Followe
         this.Curser = curser;
         this.followers.clear();
         this.followers = followers;
+        adapter.ClearData();
         adapter.setItems(followers, false);
     }
 

@@ -84,6 +84,12 @@ public class UserAccountsOperations {
         return data.get(0);
     }
 
+    public int DeleteAccounts(){
+        SQLiteDatabase db = contract.getWritableDatabase();
+        int count = db.delete(UserAccountsTable.TABLE_USER, null, null);
+        return count;
+    }
+
     public boolean IsEmpty() {
         ArrayList<UserAccount> userAccounts = getAllData();
         return userAccounts.isEmpty();
