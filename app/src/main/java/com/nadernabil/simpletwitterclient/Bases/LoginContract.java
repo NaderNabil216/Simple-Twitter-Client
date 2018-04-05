@@ -19,8 +19,7 @@ public interface LoginContract {
         void CheckerForTwitterVerifier();
         void SetPresenter(LoginPresenter loginPresenter);
         void CheckerForAddNewAccount();
-        void ShowProgressDialoug();
-
+        void ShowProgressBar();
     }
 
     interface LoginPresenter{

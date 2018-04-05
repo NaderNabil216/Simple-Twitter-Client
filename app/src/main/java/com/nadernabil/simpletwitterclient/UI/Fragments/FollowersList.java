@@ -19,6 +19,7 @@ import com.nadernabil.simpletwitterclient.CallBacks.OnLoadMoreListener;
 import com.nadernabil.simpletwitterclient.Model.Objects.Follower;
 import com.nadernabil.simpletwitterclient.Presenters.FollowersListPresenter;
 import com.nadernabil.simpletwitterclient.R;
+import com.nadernabil.simpletwitterclient.UI.Activities.MainActivity;
 import com.nadernabil.simpletwitterclient.Utils.GMethods;
 import com.nadernabil.simpletwitterclient.Utils.StorageUtil;
 

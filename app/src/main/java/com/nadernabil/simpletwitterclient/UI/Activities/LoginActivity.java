@@ -1,12 +1,12 @@
 package com.nadernabil.simpletwitterclient.UI.Activities;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.nadernabil.simpletwitterclient.Bases.LoginContract;
@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     private StorageUtil util;
     private LoginContract.LoginPresenter presenter;
     boolean FromMainActivity = false;
-    ProgressDialog progressDialog;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +46,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     @Override
     public void InitView() {
         btn_login = findViewById(R.id.btn_login);
+        progressBar = findViewById(R.id.progress_bar);
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,9 +66,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
 
     @Override
     public void LogInClick() {
-
-        ShowProgressDialoug();
-
+        progressBar.setVisibility(View.VISIBLE);
         ConfigurationBuilder builder = new ConfigurationBuilder();
         builder.setOAuthConsumerKey(GMethods.TWITTER_CONSUMER_KEY);
         builder.setOAuthConsumerSecret(GMethods.TWITTER_CONSUMER_SECRET);
@@ -107,9 +106,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
         }
     }
 
-    /**
-     * MVP
-     */
+
     @Override
     public void SetPresenter(LoginContract.LoginPresenter loginPresenter) {
         presenter = loginPresenter;
@@ -127,13 +124,10 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     }
 
     @Override
-    public void ShowProgressDialoug() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle(getString(R.string.twitter));
-        progressDialog.setMessage(getString(R.string.logging_in));
-        progressDialog.setCancelable(false);
-        progressDialog.show();
+    public void ShowProgressBar() {
+        progressBar.setVisibility(View.VISIBLE);
     }
+
 
     /**
      * login granted
@@ -142,7 +136,6 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Lo
     public void LoginSuccess(User user, AccessToken accessToken) {
         util.SetIsLogged(true);
         util.SetUID(user.getId());
-        progressDialog.dismiss();
         util.setFromMainActivity(false);
         presenter.InsertUserIntoDb(user, this);
         startActivity(new Intent(this, MainActivity.class));

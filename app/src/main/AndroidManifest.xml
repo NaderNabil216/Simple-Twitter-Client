@@ -40,9 +40,7 @@
             android:theme="@style/NoActionBar" />
         <activity
             android:name=".UI.Activities.MainActivity"
-            android:label="@string/title_activity_main"
-            android:screenOrientation="portrait"
-            android:theme="@style/NoActionBar" />
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".UI.Activities.ChangeLanguageActivity"
             android:screenOrientation="portrait"

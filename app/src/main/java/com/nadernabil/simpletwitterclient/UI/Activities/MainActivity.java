@@ -6,6 +6,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.nadernabil.simpletwitterclient.R;
@@ -16,28 +18,6 @@ public class MainActivity extends AppCompatActivity {
 
     private FragmentManager fm;
     private FragmentTransaction ft;
-    private BottomNavigationView navigation;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_followers:
-                    if (!item.isChecked()) {
-                        Switch_Followers_Tab();
-                    }
-                    return true;
-                case R.id.navigation_profile:
-                    if (!item.isChecked()) {
-                        Switch_Profile_Tab();
-                    }
-                    return true;
-            }
-            return false;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private void InitViews() {
         fm = getSupportFragmentManager();
         fm.findFragmentById(R.id.frame);
-        navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        getSupportActionBar().setTitle(getString(R.string.twitter));
     }
 
     private void Switch_Followers_Tab() {
@@ -68,5 +47,26 @@ public class MainActivity extends AppCompatActivity {
         ft.commit();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.navigation, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.navigation_followers:
+                Switch_Followers_Tab();
+                return true;
+
+            case R.id.navigation_profile:
+                Switch_Profile_Tab();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }
