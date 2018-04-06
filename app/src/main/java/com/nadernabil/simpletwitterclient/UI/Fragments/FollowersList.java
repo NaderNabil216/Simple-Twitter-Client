@@ -67,22 +67,24 @@ public class FollowersList extends Fragment implements FollowersContract.Followe
         recyclerView.setLayoutManager(manager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         followers = new ArrayList<>();
-        adapter = new FollowersAdapter(getActivity(), followers, recyclerView, new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                if (Curser != Long.valueOf(-1)) {
-                    followers.add(null);
-                    adapter.notifyItemInserted(followers.size() - 1);
-                    presenter.GetData(Curser);
-                } else {
-                    adapter.setLoaded();
-                }
-            }
-        });
+        adapter = new FollowersAdapter(getActivity(), followers, recyclerView, onLoadMoreListener);
 
         recyclerView.setAdapter(adapter);
 
     }
+
+    OnLoadMoreListener onLoadMoreListener = new OnLoadMoreListener() {
+        @Override
+        public void onLoadMore() {
+            if (Curser != Long.valueOf(-1)) {
+                followers.add(null);
+                adapter.notifyItemInserted(followers.size() - 1);
+                presenter.GetData(Curser);
+            } else {
+                adapter.setLoaded();
+            }
+        }
+    };
 
     @Override
     public void onResume() {
@@ -98,10 +100,10 @@ public class FollowersList extends Fragment implements FollowersContract.Followe
             swipeRefreshLayout.setRefreshing(false);
         }
         if (followers.size() == 0) {
-            this.Curser = curser;
-            this.followers.remove(this.followers.size() - 1);
-            adapter.notifyItemRemoved(this.followers.size());
-            adapter.setOnLoadMoreListener(null);
+//            this.Curser = curser;
+//            this.followers.remove(this.followers.size() - 1);
+//            adapter.notifyItemRemoved(this.followers.size());
+//            adapter.setOnLoadMoreListener(null);
             return;
         }
 
@@ -110,6 +112,9 @@ public class FollowersList extends Fragment implements FollowersContract.Followe
         this.followers = followers;
         adapter.ClearData();
         adapter.setItems(followers, false);
+        if (adapter.IsListenerNull()){
+            adapter.setOnLoadMoreListener(onLoadMoreListener);
+        }
     }
 
     @Override
@@ -122,6 +127,7 @@ public class FollowersList extends Fragment implements FollowersContract.Followe
             this.followers.remove(this.followers.size() - 1);
             adapter.notifyItemRemoved(this.followers.size());
             adapter.setOnLoadMoreListener(null);
+            adapter.setLoaded();
             return;
         }
         this.Curser = curser;
@@ -131,6 +137,7 @@ public class FollowersList extends Fragment implements FollowersContract.Followe
         list.addAll(followers);
         adapter.setItems(list, true);
         adapter.setLoaded();
+
     }
 
     @Override
@@ -163,6 +170,8 @@ public class FollowersList extends Fragment implements FollowersContract.Followe
 
     @Override
     public void onRefresh() {
+        Curser=Long.valueOf(-1);
+        adapter.setOnLoadMoreListener(onLoadMoreListener);
         presenter.GetData(Curser);
     }
 }

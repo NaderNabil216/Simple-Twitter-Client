@@ -49,8 +49,10 @@ public class FollowersAsyncTask extends AsyncTask<Void, Void, PagableResponseLis
         }else {
             if(curser>0){
                 followersPresenter.SetDataInViewReloaded(users,users.getNextCursor());
-            }else {
+            }else if(curser== -1) {
                 followersPresenter.SetDataInViewFirstTime(users,users.getNextCursor());
+            } else {
+                followersPresenter.SetDataInViewReloaded(users,users.getNextCursor());
             }
         }
 

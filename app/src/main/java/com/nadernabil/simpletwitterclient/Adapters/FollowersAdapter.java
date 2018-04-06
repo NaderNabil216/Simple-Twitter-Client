@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,10 +33,10 @@ public class FollowersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private ArrayList<Follower> followers;
     private boolean isLoading;
     private OnLoadMoreListener onLoadMoreListener;
-    private int visibleThreshold = 5;
+    private int visibleThreshold = 1;
     private int lastVisibleItem, totalItemCount;
 
-    public FollowersAdapter(Context context, ArrayList<Follower> followers, RecyclerView recyclerView, OnLoadMoreListener monLoadMoreListener) {
+    public FollowersAdapter(Context context, ArrayList<Follower> followers, RecyclerView recyclerView, final OnLoadMoreListener monLoadMoreListener) {
         this.context = context;
         this.followers = followers;
         this.onLoadMoreListener = monLoadMoreListener;
@@ -46,13 +47,13 @@ public class FollowersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 super.onScrolled(recyclerView, dx, dy);
                 totalItemCount = linearLayoutManager.getItemCount();
                 lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
-                if (lastVisibleItem + visibleThreshold >= 5) {
-                    if (!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
-                        if (onLoadMoreListener != null) {
-                            onLoadMoreListener.onLoadMore();
-                        }
-                        isLoading = true;
+                Log.e("event on scroll", "" + totalItemCount + " " + lastVisibleItem);
+                if (!isLoading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
+
+                    if (monLoadMoreListener != null) {
+                        monLoadMoreListener.onLoadMore();
                     }
+                    isLoading = true;
                 }
             }
         });
@@ -101,6 +102,10 @@ public class FollowersAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     public void setLoaded() {
         isLoading = false;
+    }
+
+    public boolean IsListenerNull(){
+        return onLoadMoreListener == null ;
     }
 
     public void setItems(ArrayList<Follower> followers, boolean IsAddToList) {
