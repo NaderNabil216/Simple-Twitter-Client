@@ -1,13 +1,15 @@
-# Simple Twitter Client Android Application
+# Twitter Client
+
+
+A Simple Twitter Client Application that is integrated with Twitter4j SDK, 
+implementing MVP Model and using a lot of Great Libraries.
+
 
 <img src="https://i.imgur.com/DpE6UOW.jpg" width="240" height="427"/> <img src="https://i.imgur.com/D8IJbED.jpg" width="240" height="427"/> <img src="https://i.imgur.com/bYcmDh5.jpg" width="240" height="427"/>
 
 <br>
 
 <img src="https://i.imgur.com/Pv1jGCW.jpg" width="240" height="427"/> <img src="https://i.imgur.com/ZCP8h2n.jpg" width="240" height="427"/> <img src="https://i.imgur.com/mxI1tE5.jpg" width="240" height="427"/>
-
-A Simple Twitter Client Application that is integrated with Twitter4j SDK, 
-implementing MVP Model and using a lot of Great Libraries.
 
 -----------------------------------------------------------------------------------------------------
 
