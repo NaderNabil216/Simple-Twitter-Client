@@ -29,7 +29,10 @@ implementing MVP Model and using a lot of Great Libraries.
 5. [Twitter4J ](http://twitter4j.org/en/index.html)
 
 # Software Architectural Pattern used
-1. [MVP (Model–View–Presenter)](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter)
+ [MVP (Model–View–Presenter)](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter)
+ 
+# Design Pattern
+ [Singleton](https://en.wikipedia.org/wiki/Singleton_pattern)
 
 -----------------------------------------------------------------------------------------------------
 # User Documentation :
@@ -139,6 +142,18 @@ The view, usually implemented by an Activity (it may be a Fragment, a View… de
 In an application with a good layered architecture, this model would only be the gateway to the domain layer or business logic. If we were using the Uncle Bob clean architecture , the model would probably be an interactor that implements a use case. But this is another topic that I’d like to discuss in future articles. For now, it is enough to see it as the provider of the data we want to display in the view.
 
 -----------------------------------------------------------------------------
+
+# Singleton Design Pattern
+
+The singleton pattern is one of the simplest design patterns. Sometimes we need to have only one instance of our class for example a single DB connection shared by multiple objects as creating a separate DB connection for every object may be costly. Similarly, there can be a single configuration manager or error manager in an application that handles all problems instead of creating multiple managers.
+
+Definition:
+The singleton pattern is a design pattern that restricts the instantiation of a class to one object.
+Let’s see various design options for implementing such a class. If you have a good handle on static class variables and access modifiers this should not be a difficult task.
+
+-----------------------------------------------------------------------------
+
+
 # References
 
 1.[Ahmed adel](https://github.com/ahmed-adel-said)
